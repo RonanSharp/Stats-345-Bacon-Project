@@ -5,3 +5,7 @@ date: "2024-04-05"
 output: html_document
 ---
 Hello
+<<<<<<< HEAD
+=======
+test
+>>>>>>> 95e84570031a7915910023cb7a9414e07fb71b74
