@@ -54,3 +54,13 @@ for (i in 0:19) {
 all_titles
 ```
 
+
+```{r}
+library(tidyverse)
+library(rvest)
+# Movie data to be replaced
+tt_stuff = "tt15398776"
+#puts it in a string with the other link components
+links = str_c("https:www.imdb.com/title/", tt_stuff,"/fullcredits?ref_=tt_cl_sm")
+links
+```
