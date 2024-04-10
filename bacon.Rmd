@@ -9,3 +9,48 @@ Hello
 =======
 test
 >>>>>>> 95e84570031a7915910023cb7a9414e07fb71b74
+
+
+
+
+```{r}
+library(rvest)
+library(stringr)
+# Function to scrape movie titles from a given URL
+scrape_movie_titles <- function(url) {
+  # Read the HTML content from the webpage
+  webpage <- read_html(url)
+  
+  # Extract movie titles
+  titles <- webpage %>%
+    html_nodes("a h3") %>%
+    html_text() 
+  
+  return(titles)
+}
+
+# URL pattern for IMDb search results
+base_url <- "https://www.imdb.com/search/title/?groups=top_1000&start="
+
+# Initialize a list to store movie titles
+titles <- c()
+
+# Iterate over multiple pages (20 pages with 50 movies each)
+for (i in 0:19) {
+  # Calculate the start index for each page
+  start_index <- i * 50 + 1
+  
+  # Construct the URL for the current page
+  url <- str_c(base_url, start_index)
+  
+  # Scrape movie titles from the current page
+  titles <- scrape_movie_titles(url)
+  
+  # Append the titles to the list of all titles
+  all_titles <- c(all_titles, titles)
+}
+
+# Output the list of all movie titles
+all_titles
+```
+
