@@ -1,121 +1,78 @@
-
 ```{r}
 library(rvest)
 library(stringr)
-#Define the common part of the URL
 
-
+# Define the common part of the URL
 common_url <- "https://www.imdb.com/list/ls006266261/?sort=list_order,asc&st_dt=&mode=detail&page="
-# Extract the numbers from the common part of the URL
 
+# Extract the numbers from the common part of the URL
 numbers <- 1:10
 
- 
-
 # Generate the complete URLs by joining the common part with the numbers
-
 urls <- str_c(common_url, numbers)
 
- 
-
-# Initialize an empty vector to store all titles
-
+# Initialize empty lists to store all titles, actors, directors, ratings, and profits
 all_titles <- c()
-all_actors = c()
-all_directors = c()
-all_star = c()
-all_profit = c()
+all_actors <- c()
+all_directors <- c()
+all_ratings <- c()
+all_profits <- c()
+
 # Loop through each URL
-
 for (url in urls) {
-
   # Read HTML content of the webpage
-
   webpage <- read_html(url)
-
- 
-  # Find titles based on CSS selector or XPath
-
-  titles <- webpage %>% html_nodes(".lister-item-index+ a")
-  actors = webpage %>% html_nodes(".ghost~ a , .mode-detail:nth-child(17) .text-small a")
-  directors = webpage %>% html_nodes(".text-muted a:nth-child(1)")
- star_rate = webpage %>% html_nodes(".ipl-rating-star.small .ipl-rating-star__rating")
- profit = webpage %>% html_nodes(".ghost~ .text-muted+ span")
- 
-  # Extract text content of the nodes
-
-  titles_text <- titles %>% html_text()
-  actors_text = actors %>% html_text()
-  print(length(actors_text))
- director_text = directors %>% html_text()
-star_text = star_rate %>% html_text
-profit_text = profit %>% html_text
-  # Append titles to the vector
-
-  all_titles <- c(all_titles, titles_text)
-  all_actors = c(all_actors, actors_text)
-  all_directors = c(all_directors, director_text)
-  all_star = c(all_star, star_text)
-  all_profit = c(all_profit, profit_text)
   
+  # Find titles, actors, directors, ratings, and profits based on CSS selectors
+  titles <- webpage %>% html_nodes(".lister-item-index+ a")
+  actors <- webpage %>% html_nodes(".ghost~ a")
+  directors <- webpage %>% html_nodes(".text-muted a:nth-child(1)")
+  ratings <- webpage %>% html_nodes(".ipl-rating-star.small .ipl-rating-star__rating")
+  profits <- webpage %>% html_nodes(".text-muted .ghost~ .text-muted+ span")
+  
+  # Extract text content of the nodes
+  titles_text <- titles %>% html_text()
+  actors_text <- actors %>% html_text()
+  directors_text <- directors %>% html_text()
+  ratings_text <- ratings %>% html_text()
+  profits_text <- profits %>% html_text()
+  
+  # Append titles, actors, directors, ratings, and profits to the vectors
+  all_titles <- c(all_titles, titles_text)
+  all_actors <- c(all_actors, actors_text)
+  all_directors <- c(all_directors, directors_text)
+  all_ratings <- c(all_ratings, ratings_text)
+  all_profits <- c(all_profits, profits_text)
 }
 
- 
-
-# Print all titles
-
-
-
-
-```
-
-```{r}
-
-list1 <- all_titles
-list2 <- all_actors
-list3 <- all_directors
-list4 <- all_star
-list5 <- all_profit
-
-
+# Calculate the number of iterations based on the length of all_actors
 iterations <- length(all_actors) %/% 4
 
 # Initialize empty lists to store combined data
-combined_list1 <- vector("list", iterations)
-combined_list2 <- vector("list", iterations)
-combined_list3 <- vector("list", iterations)
-combined_list4 <- vector("list", iterations)
-combined_list5 <- vector("list", iterations)
-
+combined_list <- vector("list", iterations)
 
 # Iterate through the lists
 for (i in 1:iterations) {
   start_idx <- (i - 1) * 4 + 1
   end_idx <- i * 4
-  combined_list1[[i]] <- list1
-  combined_list2[[i]] <- list2[start_idx:end_idx]
-  combined_list3[[i]] <- list3[i]
-  combined_list4[[i]] <- list4[i]
-  combined_list5[[i]] <- list5[i]
-
+  combined_list[[i]] <- list(
+    Title = all_titles[i],
+    Actor1 = all_actors[start_idx],
+    Actor2 = all_actors[start_idx + 1],
+    Actor3 = all_actors[start_idx + 2],
+    Actor4 = all_actors[start_idx + 3],
+    Director = all_directors[i],
+    Rating = all_ratings[i],
+    Profit = all_profits[i]
+  )
 }
 
-# Create the data frame
-df <- data.frame(
-  Title = rep(unlist(combined_list1), each = 4),
-  Actors = unlist(combined_list2),
-  Director = unlist(combined_list3),
-  Rating = unlist(combined_list4),
-  Profit = unlist(combined_list5)
-)
-
-
-
+# Convert the list to a data frame
+df <- do.call(rbind, combined_list)
+# Remove line 717 from the data frame
+df <- df[-717, ]
 
 # Print the resulting data frame
-print(df)
+View(df)
+
 ```
-
-
-
-
