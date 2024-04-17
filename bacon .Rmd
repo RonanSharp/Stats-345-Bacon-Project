@@ -5,6 +5,22 @@ date: "2024-04-05"
 output: html_document
 ---
 ```{r}
+library(tidyverse)
+library(rvest)
+url <- "https://www.imdb.com/list/ls006266261/?sort=list_order,asc&st_dt=&mode=detail&page="
+html = read_html(url)
+
+
+
+stuff = html_nodes(html, ".lister-item-header a") %>% html_attr("href")
+head(stuff)
+tt_stuff = stuff %>% str_extract(pattern = "tt\\d+")
+
+str_c("https:www.imdb.com/title/", tt_stuff,"/fullcredits?ref_=tt_cl_sm")
+```
+
+
+```{r}
 library(rvest)
 library(stringr)
 #Define the common part of the URL
@@ -14,6 +30,7 @@ common_url <- "https://www.imdb.com/list/ls006266261/?sort=list_order,asc&st_dt=
 # Extract the numbers from the common part of the URL
 
 numbers <- 1:10
+
  
 
 # Generate the complete URLs by joining the common part with the numbers
@@ -27,41 +44,7 @@ urls <- str_c(common_url, numbers)
 all_titles <- c()
 all_actors = c()
 all_directors = c()
-all_star_rate = c()
+all_star = c()
+all_profit = c()
 # Loop through each URL
 
-for (url in urls) {
-
-  # Read HTML content of the webpage
-
-  webpage <- read_html(url)
-
- 
-  # Find titles based on CSS selector or XPath
-
-  titles <- webpage %>% html_nodes("h3 a")
-  actors = webpage %>% html_nodes(".text-small a+ a , .ghost+ a")
-  directors = webpage %>% html_nodes(".text-small a:nth-child(1)")
- 
- 
-  # Extract text content of the nodes
-
-  titles_text <- titles %>% html_text()
-  actors_text = actors %>% html_text()
- director_text = directors %>% html_text()
-
-  # Append titles to the vector
-
-  all_titles <- c(all_titles, titles_text)
-  all_actors = c(all_actors, actors_text)
-  all_directors = c(all_directors, director_text)
-  
-}
-
- 
-
-# Print all titles
-
-
-
-```
