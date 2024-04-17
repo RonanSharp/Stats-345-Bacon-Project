@@ -1,9 +1,3 @@
----
-title: "Main area"
-author: "Ronan Sharp, Lucas Karls, Noah Crawley, Joe Held"
-date: "2024-04-05"
-output: html_document
----
 ```{r}
 library(tidyverse)
 library(rvest)
@@ -48,3 +42,43 @@ all_star = c()
 all_profit = c()
 # Loop through each URL
 
+for (url in urls) {
+
+  # Read HTML content of the webpage
+
+  webpage <- read_html(url)
+
+ 
+  # Find titles based on CSS selector or XPath
+
+  titles <- webpage %>% html_nodes(".lister-item-index+ a")
+  actors = webpage %>% html_nodes(".ghost~ a , .mode-detail:nth-child(17) .text-small a")
+  directors = webpage %>% html_nodes(".text-muted a:nth-child(1)")
+ star_rate = webpage %>% html_nodes(".ipl-rating-star.small .ipl-rating-star__rating")
+ profit = webpage %>% html_nodes(".ghost~ .text-muted+ span")
+ 
+  # Extract text content of the nodes
+
+  titles_text <- titles %>% html_text()
+  actors_text = actors %>% html_text()
+  print(length(actors_text))
+ director_text = directors %>% html_text()
+star_text = star_rate %>% html_text
+profit_text = profit %>% html_text
+  # Append titles to the vector
+
+  all_titles <- c(all_titles, titles_text)
+  all_actors = c(all_actors, actors_text)
+  all_directors = c(all_directors, director_text)
+  all_star = c(all_star, star_text)
+  all_profit = c(all_profit, profit_text)
+  
+}
+
+ 
+
+# Print all titles
+
+
+
+```
