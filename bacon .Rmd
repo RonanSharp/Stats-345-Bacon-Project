@@ -66,4 +66,56 @@ profit_text = profit %>% html_text
 
 
 
+
 ```
+
+```{r}
+
+list1 <- all_titles
+list2 <- all_actors
+list3 <- all_directors
+list4 <- all_star
+list5 <- all_profit
+
+
+iterations <- length(all_actors) %/% 4
+
+# Initialize empty lists to store combined data
+combined_list1 <- vector("list", iterations)
+combined_list2 <- vector("list", iterations)
+combined_list3 <- vector("list", iterations)
+combined_list4 <- vector("list", iterations)
+combined_list5 <- vector("list", iterations)
+
+
+# Iterate through the lists
+for (i in 1:iterations) {
+  start_idx <- (i - 1) * 4 + 1
+  end_idx <- i * 4
+  combined_list1[[i]] <- list1
+  combined_list2[[i]] <- list2[start_idx:end_idx]
+  combined_list3[[i]] <- list3[i]
+  combined_list4[[i]] <- list4[i]
+  combined_list5[[i]] <- list5[i]
+
+}
+
+# Create the data frame
+df <- data.frame(
+  Title = rep(unlist(combined_list1), each = 4),
+  Actors = unlist(combined_list2),
+  Director = unlist(combined_list3),
+  Rating = unlist(combined_list4),
+  Profit = unlist(combined_list5)
+)
+
+
+
+
+# Print the resulting data frame
+print(df)
+```
+
+
+
+
