@@ -54,16 +54,67 @@ for (i in 0:19) {
 # Output the list of all movie titles
 all_titles
 ```
+
+
 ```{r}
-library(tidyverse)
 library(rvest)
-tt_stuff = "tt15398776"
+library(stringr)
+#Define the common part of the URL
 
-links = str_c("https:www.imdb.com/title/", tt_stuff,"/fullcredits?ref_=tt_cl_sm")
-links
 
-links
-X <- read.csv(url(links))
-stuff = html_nodes(html, ".ipc-title-link-wrapper") %>% html_attr("href")
-head(stuff)
+common_url <- "https://www.imdb.com/list/ls006266261/?sort=list_order,asc&st_dt=&mode=detail&page="
+# Extract the numbers from the common part of the URL
+
+numbers <- 1:10
+
+ 
+
+# Generate the complete URLs by joining the common part with the numbers
+
+urls <- str_c(common_url, numbers)
+
+ 
+
+# Initialize an empty vector to store all titles
+
+all_titles <- c()
+all_actors = c()
+all_directors = c()
+all_star_rate = c()
+# Loop through each URL
+
+for (url in urls) {
+
+  # Read HTML content of the webpage
+
+  webpage <- read_html(url)
+
+ 
+  # Find titles based on CSS selector or XPath
+
+  titles <- webpage %>% html_nodes("h3 a")
+  actors = webpage %>% html_nodes(".text-small a+ a , .ghost+ a")
+  directors = webpage %>% html_nodes(".text-small a:nth-child(1)")
+ 
+ 
+  # Extract text content of the nodes
+
+  titles_text <- titles %>% html_text()
+  actors_text = actors %>% html_text()
+ director_text = directors %>% html_text()
+
+  # Append titles to the vector
+
+  all_titles <- c(all_titles, titles_text)
+  all_actors = c(all_actors, actors_text)
+  all_directors = c(all_directors, director_text)
+  
+}
+
+ 
+
+# Print all titles
+
+
+
 ```
