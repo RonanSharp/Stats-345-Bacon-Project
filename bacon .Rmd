@@ -1,6 +1,7 @@
 ```{r}
 library(rvest)
 library(stringr)
+library(dplyr)
 
 # Define the common part of the URL
 common_url <- "https://www.imdb.com/list/ls006266261/?sort=list_order,asc&st_dt=&mode=detail&page="
@@ -47,8 +48,21 @@ for (url in urls) {
 
 # Remove actors number 65 and 66 from the list of actors
 all_actors <- all_actors[-c(65, 66, 867, 1268, 1669, 2070, 2471, 3272, 3673)]
-#all_profits <- all_profits[-c(1,2)]
 
+#all_profits <- all_profits[-c(1, 2, 102, 103, 201, 202)] #, 294, 295, 390, 391, 480, 481, 577, 578, 671, 672, 761, 762, 859, 860)]
+# Find indices of elements containing "|"
+indices <- grep("\\|", all_profits)
+
+# Remove elements containing "|"
+all_profits <- all_profits[-indices]
+
+# Positions to insert "N/A"
+positions <- c(45,109, 149, 167, 174, 176, 222, 235, 236, 246, 250, 327, 334, 347, 378, 380, 397, 403, 405, 409, 423, 429, 438, 443, 451, 460, 466, 473, 494, 518, 556, 569, 588, 597, 601, 607, 610, 646, 657, 674, 680, 687, 732, 740, 757, 759, 767, 776, 778, 779, 790, 793, 794, 797, 802, 867, 874, 886, 908, 916, 946, 948, 980, 987, 992)
+
+# Iterate over each position and insert "N/A"
+for (pos in positions) {
+  all_profits <- c(all_profits[1:(pos-1)], "N/A", all_profits[pos:length(all_profits)])
+}
 # Calculate the number of iterations based on the length of all_actors
 iterations <- length(all_actors) %/% 4
 
@@ -76,4 +90,5 @@ df <- do.call(rbind, combined_list)
 
 # Print the resulting data frame
 View(df)
+
 ```
