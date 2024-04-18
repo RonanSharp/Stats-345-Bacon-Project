@@ -25,10 +25,10 @@ for (url in urls) {
   
   # Find titles, actors, directors, ratings, and profits based on CSS selectors
   titles <- webpage %>% html_nodes(".lister-item-index+ a")
-  actors <- webpage %>% html_nodes(".ghost~ a")
+  actors <- webpage %>% html_nodes(".ghost~ a , .mode-detail:nth-child(17) .text-small a")
   directors <- webpage %>% html_nodes(".text-muted a:nth-child(1)")
   ratings <- webpage %>% html_nodes(".ipl-rating-star.small .ipl-rating-star__rating")
-  profits <- webpage %>% html_nodes(".text-muted .ghost~ .text-muted+ span")
+  profits <- webpage %>% html_nodes(".ghost~ .text-muted+ span")
   
   # Extract text content of the nodes
   titles_text <- titles %>% html_text()
@@ -44,6 +44,10 @@ for (url in urls) {
   all_ratings <- c(all_ratings, ratings_text)
   all_profits <- c(all_profits, profits_text)
 }
+
+# Remove actors number 65 and 66 from the list of actors
+all_actors <- all_actors[-c(65, 66, 867, 1268, 1669, 2070, 2471, 3272, 3673)]
+#all_profits <- all_profits[-c(1,2)]
 
 # Calculate the number of iterations based on the length of all_actors
 iterations <- length(all_actors) %/% 4
@@ -69,10 +73,7 @@ for (i in 1:iterations) {
 
 # Convert the list to a data frame
 df <- do.call(rbind, combined_list)
-# Remove line 717 from the data frame
-df <- df[-717, ]
 
 # Print the resulting data frame
 View(df)
-
 ```
