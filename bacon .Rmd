@@ -102,4 +102,20 @@ as.numeric(df$Rating)
 subset_df <- subset(df, Rating > 8.6)
 View(subset_df)
 
+
+#changes rating from char to num
+as.numeric(df$Rating)
+
+
+#Create a df that has movies with ratings 8.6 and higher
+Rating_df <- subset(df, Rating >= 8.6, c("Title", "Actor1", "Actor2", "Actor3", "Actor4"))
+
+view(Rating_df)
+
+#Create a df that has certain directors movies
+Director_df <- subset(df, Director == "Steven Spielberg", c("Title", "Actor1", "Actor2", "Actor3", "Actor4"))
+
+view(Director_df)
+
+
 ```
