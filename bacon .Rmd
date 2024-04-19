@@ -2,6 +2,10 @@
 library(rvest)
 library(stringr)
 library(dplyr)
+library(igraph)
+library(tidygraph)
+library(tidyverse)
+library(ggraph)
 
 # Define the common part of the URL
 common_url <- "https://www.imdb.com/list/ls006266261/?sort=list_order,asc&st_dt=&mode=detail&page="
