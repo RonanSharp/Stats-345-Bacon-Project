@@ -87,8 +87,15 @@ for (i in 1:iterations) {
 
 # Convert the list to a data frame
 df <- do.call(rbind, combined_list)
+# Convert the list to a data frame
+df <- as.data.frame(do.call(rbind, combined_list))
 
 # Print the resulting data frame
 View(df)
+
+# Assuming your data frame is called df
+as.numeric(df$Rating)
+subset_df <- subset(df, Rating > 8.6)
+View(subset_df)
 
 ```
