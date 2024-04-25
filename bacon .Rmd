@@ -117,5 +117,19 @@ Director_df <- subset(df, Director == "Steven Spielberg", c("Title", "Actor1", "
 
 view(Director_df)
 
+# Reshape the data frame
+Director_df_long <- pivot_longer(Director_df, cols = starts_with("Actor"), values_to = "Actor")
+
+# Remove "Actor" from the names of the 'Actor' column
+Director_df_long$Actor <- gsub("Actor", "", Director_df_long$Actor)
+
+# Remove the 'name' column
+Director_df_long <- select(Director_df_long, -name)
+
+# Order the data frame by Title
+Director_df_long <- arrange(Director_df_long, Title)
+
+# View the resulting data frame
+View(Director_df_long)
 
 ```
