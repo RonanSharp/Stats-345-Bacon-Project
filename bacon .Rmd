@@ -175,6 +175,14 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
 
 ```
 
+```{r}
+df_long <- pivot_longer(df, cols = starts_with("Actor"), values_to = "Actor")
+df_long$Actor <- gsub("Actor", "", df_long$Actor)
+df_long <- select(df_long, -name)
+df_long <- arrange(df_long, Title)
+df_long <- df_long %>% select(Actor, Title)
+View(df_long)
+
 ## Bacon Number Code
 library(igraph)
 
@@ -191,4 +199,4 @@ hanks_numbers <- shortest.paths(graph, to = tom_hanks_index)
 actors <- V(graph)$name
 hanks_numbers_df <- data.frame(actor = actors, hanks_number = hanks_numbers)
 View(hanks_numbers_df)
-
+```
