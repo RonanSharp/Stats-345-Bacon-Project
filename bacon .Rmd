@@ -174,3 +174,21 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
   visInteraction(navigationButtons = TRUE)
 
 ```
+
+## Bacon Number Code
+library(igraph)
+
+# Create a graph object
+graph <- graph.data.frame(df_long, directed = FALSE)
+
+# Find the index of Tom Hanks in the graph
+tom_hanks_index <- which(V(graph)$name == "Tom Hanks")
+
+# Calculate shortest paths to Kevin Bacon for all actors
+hanks_numbers <- shortest.paths(graph, to = tom_hanks_index)
+
+# Extract Bacon numbers for each actor
+actors <- V(graph)$name
+hanks_numbers_df <- data.frame(actor = actors, hanks_number = hanks_numbers)
+View(hanks_numbers_df)
+
