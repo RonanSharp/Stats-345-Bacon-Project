@@ -304,11 +304,18 @@ View(filtered_hanks_numbers_df)
 print(filtered_hanks_numbers_df)
 find_hanks_number = function(actor)
 {
- filtered_hanks_numbers_df[actor,2]
+ x = filtered_hanks_numbers_df[actor,2]
+ if(is.na(x))
+ {
+   return("They are unconnected in our data or you may need to check spelling")
+ }
+ else
+ {
+   return(x)
+ }
 }
 
 find_hanks_number("Uma Thurman")
-
 
 # Create histogram
 histogram <- ggplot(filtered_hanks_numbers_df, aes(x = Tom.Hanks)) +
