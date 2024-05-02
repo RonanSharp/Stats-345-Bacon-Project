@@ -30,14 +30,14 @@ for (url in urls) {
   # Read HTML content of the webpage
   webpage <- read_html(url)
   
-  # Find titles, actors, directors, ratings, and profits based on CSS selectors
+  # Find titles, actors, directors, ratings, and profits based on selector gadget key words
   titles <- webpage %>% html_nodes(".lister-item-index+ a")
   actors <- webpage %>% html_nodes(".ghost~ a , .mode-detail:nth-child(17) .text-small a")
   directors <- webpage %>% html_nodes(".text-muted a:nth-child(1)")
   ratings <- webpage %>% html_nodes(".ipl-rating-star.small .ipl-rating-star__rating")
   profits <- webpage %>% html_nodes(".ghost~ .text-muted+ span")
   
-  # Extract text content of the nodes
+  # Extract text content of the nodes this then gives us the information we need for each of the categories
   titles_text <- titles %>% html_text()
   actors_text <- actors %>% html_text()
   directors_text <- directors %>% html_text()
@@ -52,19 +52,19 @@ for (url in urls) {
   all_profits <- c(all_profits, profits_text)
 }
 
-# Remove actors number 65 and 66 from the list of actors
+# Remove the directors that come up as actors to get all the actors consistant with each movie
 all_actors <- all_actors[-c(65, 66, 867, 1268, 1669, 2070, 2471, 3272, 3673)]
 
-# Find indices of elements containing "|"
+# Find indices of elements containing "|" in front of the profits when we selected them
 indices <- grep("\\|", all_profits)
 
-# Remove elements containing "|"
+# Remove elements containing "|" and now we will have nice numbers for each of the profits for each movie
 all_profits <- all_profits[-indices]
 
-# Positions to insert "N/A"
+# Positions to insert "N/A", we went through each movie and were able to indentify which movies from the website did not have any profits and so we imported N/A in its place
 positions <- c(45,109, 149, 167, 174, 176, 222, 235, 236, 246, 250, 327, 334, 347, 378, 380, 397, 403, 405, 409, 423, 429, 438, 443, 451, 460, 466, 473, 494, 518, 556, 569, 588, 597, 601, 607, 610, 646, 657, 674, 680, 687, 732, 740, 757, 759, 767, 776, 778, 779, 790, 793, 794, 797, 802, 867, 874, 886, 908, 916, 946, 948, 980, 987, 992)
 
-# Iterate over each position and insert "N/A"
+# Iterate over each position and insert "N/A" where needed in the code
 for (pos in positions) {
   all_profits <- c(all_profits[1:(pos-1)], "N/A", all_profits[pos:length(all_profits)])
 }
