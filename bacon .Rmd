@@ -302,5 +302,11 @@ filtered_hanks_numbers_df <- arrange(filtered_hanks_numbers_df, desc(Tom.Hanks))
 
 View(filtered_hanks_numbers_df)
 print(filtered_hanks_numbers_df)
+find_hanks_number = function(actor)
+{
+ filtered_hanks_numbers_df[actor,2]
+}
+
+find_hanks_number("Uma Thurman")
 
 ```
