@@ -174,6 +174,95 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
   visInteraction(navigationButtons = TRUE)
 
 ```
+```{r}
+
+Graph_Director = function(director)
+{
+  Director_df <- subset(df, Director == director, c("Title", "Actor1", "Actor2", "Actor3", "Actor4"))
+  # Reshape the data frame
+Director_df_long <- pivot_longer(Director_df, cols = starts_with("Actor"), values_to = "Actor")
+
+# Remove "Actor" from the names of the 'Actor' column
+Director_df_long$Actor <- gsub("Actor", "", Director_df_long$Actor)
+
+# Remove the 'name' column
+Director_df_long <- select(Director_df_long, -name)
+
+# Order the data frame by Title
+Director_df_long <- arrange(Director_df_long, Title)
+
+# View the resulting data frame
+View(Director_df_long)
+  
+
+# Switch the columns
+switched_director_df_long <- Director_df_long[, c("Actor", "Title")]
+
+# Print the first few rows of the switched data frame to verify the changes
+View(switched_director_df_long)
+
+
+network <- switched_director_df_long %>% 
+  as_tbl_graph()
+network
+
+class(network)
+
+network %>% 
+  activate(nodes) %>%
+  mutate(degree = centrality_degree()) %>%
+  as_tibble() %>%
+  arrange(desc(degree))
+
+library(visNetwork)
+
+vis_network <- network %>% 
+  mutate(group = if_else(condition = name %in% unique(switched_director_df_long$Actor),
+                         true = "Actor",
+                         false = "Title")) %>%
+  toVisNetworkData()
+
+visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
+           width = "100%", height = "600px",
+           main = "Bacon Number") %>%
+  visLayout(randomSeed = 1000) %>%
+  addFontAwesome() %>%
+  visGroups(groupname = "Title", shape = "icon",
+            icon = list(code = "f008", color = "darkblue")) %>%
+  visGroups(groupname = "Character", shape = "icon",
+           icon = list(code = "f007", color ="red")) %>%
+  visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE),
+             nodesIdSelection = TRUE) %>%
+  visInteraction(navigationButtons = TRUE)
+  
+  
+  
+  
+  
+  
+}
+  
+
+
+
+
+Graph_Director(all_directors[1:10])
+
+
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
 
 ```{r}
 df_long <- pivot_longer(df, cols = starts_with("Actor"), values_to = "Actor")
