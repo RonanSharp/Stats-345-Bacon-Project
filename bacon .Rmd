@@ -293,8 +293,14 @@ filtered_hanks_numbers_df <- hanks_numbers_df[!hanks_numbers_df$actor %in% all_t
 
 # Remove actors that aren't connected to Tom Hanks
 filtered_hanks_numbers_df <-  filtered_hanks_numbers_df[filtered_hanks_numbers_df$Tom.Hanks != "Inf", ]
+# Remove the column labeled "actor"
+filtered_hanks_numbers_df <- select(filtered_hanks_numbers_df, -actor)
+library(dplyr)
 
+# Arrange the results in descending order based on the "hanks_number" column
+filtered_hanks_numbers_df <- arrange(filtered_hanks_numbers_df, desc(Tom.Hanks))
 
 View(filtered_hanks_numbers_df)
+print(filtered_hanks_numbers_df)
 
 ```
