@@ -309,4 +309,25 @@ find_hanks_number = function(actor)
 
 find_hanks_number("Uma Thurman")
 
+
+# Create histogram
+histogram <- ggplot(filtered_hanks_numbers_df, aes(x = Tom.Hanks)) +
+  geom_histogram(binwidth = 1, fill = "skyblue", color = "black", alpha = 0.7) +  # Adjust binwidth as needed
+  labs(title = "Histogram of Hanks Numbers",
+       x = "Hanks Number",
+       y = "Frequency") +
+  theme_minimal()
+
+# Calculate mean value
+mean_value <- mean(filtered_hanks_numbers_df$Tom.Hanks)
+
+# Add mean line
+histogram <- histogram + geom_vline(xintercept = mean_value, color = "red", linetype = "dashed")
+
+# Summary of the data
+summary(filtered_hanks_numbers_df)
+
+# Print histogram
+print(histogram)
+
 ```
