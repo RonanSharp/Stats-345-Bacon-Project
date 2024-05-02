@@ -236,9 +236,9 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
 }
 
 Graph_Director(all_directors[1:10])
+```
 
-
-
+```{r}
 df_long <- pivot_longer(df, cols = starts_with("Actor"), values_to = "Actor")
 df_long$Actor <- gsub("Actor", "", df_long$Actor)
 df_long <- select(df_long, -name)
