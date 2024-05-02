@@ -171,7 +171,7 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
              nodesIdSelection = TRUE) %>%
   visInteraction(navigationButtons = TRUE)
 
-
+# We are now able to select whichever director we want for the graph and this is mcuh more user friendly for finding results we want to know
 Graph_Director = function(director)
 {
   Director_df <- subset(df, Director == director, c("Title", "Actor1", "Actor2", "Actor3", "Actor4"))
@@ -191,32 +191,31 @@ Director_df_long <- arrange(Director_df_long, Title)
 View(Director_df_long)
   
 
-# Switch the columns
+# Switch the columns to rows 
 switched_director_df_long <- Director_df_long[, c("Actor", "Title")]
 
 # Print the first few rows of the switched data frame to verify the changes
 View(switched_director_df_long)
 
-
+#turns the data long so that it can be processed easier
 network <- switched_director_df_long %>% 
   as_tbl_graph()
-network
 
-class(network)
-
+# sets network up for making a network graph changing the network to a tibble
 network %>% 
   activate(nodes) %>%
   mutate(degree = centrality_degree()) %>%
   as_tibble() %>%
   arrange(desc(degree))
 
-
+# Makes a visnetwork using the data and binds that to the swithced director data
 vis_network <- network %>% 
   mutate(group = if_else(condition = name %in% unique(switched_director_df_long$Actor),
                          true = "Actor",
                          false = "Title")) %>%
   toVisNetworkData()
 
+# Sets up the visnetwork visually and then allows to create a graph we slected the movie icon and then we are able to select the movies to be the main part to each graph, we then selected the different colors for each part, and then we are able to produce the graph
 visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
            width = "100%", height = "600px",
            main = "Bacon Number") %>%
@@ -230,7 +229,7 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
              nodesIdSelection = TRUE) %>%
   visInteraction(navigationButtons = TRUE) 
 }
-
+# We are now able to select whichever director we want only for the top 10 for the graph and this is mcuh more user friendly for finding results we want to know
 Graph_Director(all_directors[1:10])
 ```
 
