@@ -68,13 +68,13 @@ positions <- c(45,109, 149, 167, 174, 176, 222, 235, 236, 246, 250, 327, 334, 34
 for (pos in positions) {
   all_profits <- c(all_profits[1:(pos-1)], "N/A", all_profits[pos:length(all_profits)])
 }
-# Calculate the number of iterations based on the length of all_actors
+# Assign 4 actors to each movie since each movie has 4 actors exactly
 iterations <- length(all_actors) %/% 4
 
-# Initialize empty lists to store combined data
+# Initialize empty lists to store combined data based on the actors and number of actors 
 combined_list <- vector("list", iterations)
 
-# Iterate through the lists
+# Iterate through the lists and then assign the actors, directors, raitngs, profit correctly to each movie and then display the data
 for (i in 1:iterations) {
   start_idx <- (i - 1) * 4 + 1
   end_idx <- i * 4
@@ -90,38 +90,38 @@ for (i in 1:iterations) {
   )
 }
 
-# Convert the list to a data frame
+# Convert the list to a data frame so it is better able to access
 df <- do.call(rbind, combined_list)
-# Convert the list to a data frame
+# Convert the list to a data frame using the r bind function
 df <- as.data.frame(do.call(rbind, combined_list))
 
 # Print the resulting data frame
 View(df)
 
-# Assuming your data frame is called df
+# we now want to make the ratings into numbers so we are better able to manipulate these subsets
 as.numeric(df$Rating)
+# created a subset based on the rating greater than 8.6
 subset_df <- subset(df, Rating > 8.6)
+
 View(subset_df)
 
-
-#changes rating from char to num
+#changes rating from char to num and makes it better able to access
 as.numeric(df$Rating)
-
 
 #Create a df that has movies with ratings 8.6 and higher
 Rating_df <- subset(df, Rating >= 8.6, c("Title", "Actor1", "Actor2", "Actor3", "Actor4"))
 
 view(Rating_df)
 
-#Create a df that has certain directors movies
+# Create a data frame that only uses the director Steven Speilburg and then only find the actors and title. 
 Director_df <- subset(df, Director == "Steven Spielberg", c("Title", "Actor1", "Actor2", "Actor3", "Actor4"))
 
 view(Director_df)
 
-# Reshape the data frame
+# Reshape the data frame so that we are able to get the actor and then assign each movie they go to
 Director_df_long <- pivot_longer(Director_df, cols = starts_with("Actor"), values_to = "Actor")
 
-# Remove "Actor" from the names of the 'Actor' column
+# Remove "Actor" from the names of the 'Actor' column so that we just get the actor and the movie they are assign to
 Director_df_long$Actor <- gsub("Actor", "", Director_df_long$Actor)
 
 # Remove the 'name' column
@@ -134,7 +134,7 @@ Director_df_long <- arrange(Director_df_long, Title)
 View(Director_df_long)
 
 
-# Switch the columns
+# Switch the columns so that they become rows
 switched_director_df_long <- Director_df_long[, c("Actor", "Title")]
 
 # Print the first few rows of the switched data frame to verify the changes
