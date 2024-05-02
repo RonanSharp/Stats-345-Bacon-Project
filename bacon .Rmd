@@ -237,6 +237,7 @@ Graph_Director(all_directors[1:10])
 library(dplyr)
 library(visNetwork)
 
+# This code just takes the data frame and makes the graph so that it has 4 actors with each movie to each actor assign to the movie 4 times
 df_long <- pivot_longer(df, cols = starts_with("Actor"), values_to = "Actor")
 df_long$Actor <- gsub("Actor", "", df_long$Actor)
 df_long <- select(df_long, -name)
@@ -272,7 +273,7 @@ filtered_hanks_numbers_df <- arrange(filtered_hanks_numbers_df, desc(Tom.Hanks))
 
 print(filtered_hanks_numbers_df)
 
-# Create histogram
+# Create histogram that will take the hank number and then is able to find the mean and we are able to graph is nicely so that we see all of the numbers 1 through 10 and clean the graph up 
 histogram <- ggplot(filtered_hanks_numbers_df, aes(x = Tom.Hanks)) +
   geom_histogram(binwidth = 1, fill = "skyblue", color = "black", alpha = 0.7) +  
   labs(title = "Histogram of Hanks Numbers",
@@ -296,7 +297,7 @@ histogram <- histogram + geom_vline(xintercept = mean_value, color = "red", line
 print(histogram)
 summary(filtered_hanks_numbers_df)
 
-
+# This function is able to take in any actor in which you give the function and will return the Hank number that it has, as well as it will return an error if it is spelled wrong
 find_hanks_number = function(actor)
 {
  x = filtered_hanks_numbers_df[actor,2]
@@ -321,6 +322,7 @@ library(dplyr)
 # Create filter so that you can find Hanks numbers for movies that fit certain ratings 
 df_rating <- filter(df, df$Rating >=8.5)
 
+# This code just takes the data frame and makes the graph so that it has 4 actors with each movie to each actor assign to the movie 4 times
 df_long <- pivot_longer(df_rating, cols = starts_with("Actor"), values_to = "Actor")
 df_long$Actor <- gsub("Actor", "", df_long$Actor)
 df_long <- select(df_long, -name)
