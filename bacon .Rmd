@@ -6,6 +6,7 @@ library(igraph)
 library(tidygraph)
 library(tidyverse)
 library(ggraph)
+library(igraph)
 
 # Define the common part of the URL
 common_url <- "https://www.imdb.com/list/ls006266261/?sort=list_order,asc&st_dt=&mode=detail&page="
@@ -173,8 +174,6 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
              nodesIdSelection = TRUE) %>%
   visInteraction(navigationButtons = TRUE)
 
-```
-```{r}
 
 Graph_Director = function(director)
 {
@@ -233,38 +232,13 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
            icon = list(code = "f007", color ="red")) %>%
   visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE),
              nodesIdSelection = TRUE) %>%
-  visInteraction(navigationButtons = TRUE)
-  
-  
-  
-  
-  
-  
+  visInteraction(navigationButtons = TRUE) 
 }
-  
-
-
-
 
 Graph_Director(all_directors[1:10])
 
 
 
-
-
-
-
-
-
-
-```
-
-
-
-
-
-
-```{r}
 df_long <- pivot_longer(df, cols = starts_with("Actor"), values_to = "Actor")
 df_long$Actor <- gsub("Actor", "", df_long$Actor)
 df_long <- select(df_long, -name)
@@ -272,8 +246,6 @@ df_long <- arrange(df_long, Title)
 df_long <- df_long %>% select(Actor, Title)
 
 
-
-library(igraph)
 
 # Create a graph object
 graph <- graph.data.frame(df_long, directed = FALSE)
@@ -300,22 +272,7 @@ library(dplyr)
 # Arrange the results in descending order based on the "hanks_number" column
 filtered_hanks_numbers_df <- arrange(filtered_hanks_numbers_df, desc(Tom.Hanks))
 
-View(filtered_hanks_numbers_df)
 print(filtered_hanks_numbers_df)
-find_hanks_number = function(actor)
-{
- x = filtered_hanks_numbers_df[actor,2]
- if(is.na(x))
- {
-   return("They are unconnected in our data or you may need to check spelling")
- }
- else
- {
-   return(x)
- }
-}
-
-find_hanks_number("Uma Thurman")
 
 # Create histogram
 histogram <- ggplot(filtered_hanks_numbers_df, aes(x = Tom.Hanks)) +
@@ -340,4 +297,21 @@ histogram <- histogram + geom_vline(xintercept = mean_value, color = "red", line
 # Print histogram
 print(histogram)
 summary(filtered_hanks_numbers_df)
+
+
+find_hanks_number = function(actor)
+{
+ x = filtered_hanks_numbers_df[actor,2]
+ if(is.na(x))
+ {
+   return("They are unconnected in our data or you may need to check spelling")
+ }
+ else
+ {
+   return(x)
+ }
+}
+
+find_hanks_number("Uma Thurman")
+
 ```
