@@ -319,11 +319,17 @@ find_hanks_number("Uma Thurman")
 
 # Create histogram
 histogram <- ggplot(filtered_hanks_numbers_df, aes(x = Tom.Hanks)) +
-  geom_histogram(binwidth = 1, fill = "skyblue", color = "black", alpha = 0.7) +  # Adjust binwidth as needed
+  geom_histogram(binwidth = 1, fill = "skyblue", color = "black", alpha = 0.7) +  
   labs(title = "Histogram of Hanks Numbers",
        x = "Hanks Number",
        y = "Frequency") +
-  theme_minimal()
+  theme_minimal() +
+  theme(plot.title = element_text(hjust = 0.5),  # Center the title
+        axis.text = element_text(size = 10),     # Adjust axis text size
+        axis.title = element_text(size = 12),    # Adjust axis title size
+        plot.margin = unit(c(1, 1, 1, 1), "cm")) +  # Add margin around the plot
+  scale_x_continuous(breaks = seq(1, max(filtered_hanks_numbers_df$Tom.Hanks), by = 1)) +  # Use whole numbers on the x-axis starting from 1
+  coord_cartesian(xlim = c(1, max(filtered_hanks_numbers_df$Tom.Hanks) + 1))  # Expand x-axis range starting from 1
 
 # Calculate mean value
 mean_value <- mean(filtered_hanks_numbers_df$Tom.Hanks)
@@ -331,10 +337,7 @@ mean_value <- mean(filtered_hanks_numbers_df$Tom.Hanks)
 # Add mean line
 histogram <- histogram + geom_vline(xintercept = mean_value, color = "red", linetype = "dashed")
 
-# Summary of the data
-summary(filtered_hanks_numbers_df)
-
 # Print histogram
 print(histogram)
-
+summary(filtered_hanks_numbers_df)
 ```
