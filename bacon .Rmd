@@ -227,7 +227,7 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
 Graph_Director(all_directors[1:10])
 ```
 
-```{r}
+```{r,echo=FALSE}
 library(dplyr)
 library(visNetwork)
 
@@ -293,7 +293,7 @@ summary(filtered_hanks_numbers_df)
 
 ```
 
-```{r}
+```{r,echo=FALSE}
 library(igraph)
 library(dplyr)
 
