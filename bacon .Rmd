@@ -265,7 +265,7 @@ filtered_hanks_numbers_df <- select(filtered_hanks_numbers_df, -actor)
 # Arrange the results in descending order based on the "hanks_number" column
 filtered_hanks_numbers_df <- arrange(filtered_hanks_numbers_df, desc(Tom.Hanks))
 
-print(filtered_hanks_numbers_df)
+head(filtered_hanks_numbers_df)
 
 # Create histogram that will take the hank number and then is able to find the mean and we are able to graph is nicely so that we see all of the numbers 1 through 10 and clean the graph up 
 histogram <- ggplot(filtered_hanks_numbers_df, aes(x = Tom.Hanks)) +
