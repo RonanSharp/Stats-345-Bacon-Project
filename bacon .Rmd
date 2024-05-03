@@ -160,7 +160,9 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
   visOptions(highlightNearest = list(enabled = TRUE, hover = TRUE),
              nodesIdSelection = TRUE) %>%
   visInteraction(navigationButtons = TRUE)
+```
 
+```{r}
 # We are now able to select whichever director we want for the graph and this is mcuh more user friendly for finding results we want to know
 Graph_Director = function(director)
 {
