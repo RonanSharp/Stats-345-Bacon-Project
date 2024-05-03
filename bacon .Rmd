@@ -297,22 +297,6 @@ histogram <- histogram + geom_vline(xintercept = mean_value, color = "red", line
 print(histogram)
 summary(filtered_hanks_numbers_df)
 
-# This function is able to take in any actor in which you give the function and will return the Hank number that it has, as well as it will return an error if it is spelled wrong
-find_hanks_number = function(actor)
-{
- x = filtered_hanks_numbers_df[actor,2]
- if(is.na(x))
- {
-   return("They are unconnected in our data or you may need to check spelling")
- }
- else
- {
-   return(x)
- }
-}
-
-find_hanks_number("Uma Thurman")
-
 ```
 
 ```{r}
