@@ -95,15 +95,14 @@ df <- do.call(rbind, combined_list)
 # Convert the list to a data frame using the r bind function
 df <- as.data.frame(do.call(rbind, combined_list))
 
-# Print the resulting data frame
-View(df)
+
 
 # we now want to make the ratings into numbers so we are better able to manipulate these subsets
 as.numeric(df$Rating)
 # created a subset based on the rating greater than 8.6
 subset_df <- subset(df, Rating > 8.6)
 
-View(subset_df)
+
 
 #changes rating from char to num and makes it better able to access
 as.numeric(df$Rating)
@@ -116,7 +115,7 @@ view(Rating_df)
 # Create a data frame that only uses the director Steven Speilburg and then only find the actors and title. 
 Director_df <- subset(df, Director == "Steven Spielberg", c("Title", "Actor1", "Actor2", "Actor3", "Actor4"))
 
-view(Director_df)
+
 
 # Reshape the data frame so that we are able to get the actor and then assign each movie they go to
 Director_df_long <- pivot_longer(Director_df, cols = starts_with("Actor"), values_to = "Actor")
@@ -130,15 +129,13 @@ Director_df_long <- select(Director_df_long, -name)
 # Order the data frame by Title
 Director_df_long <- arrange(Director_df_long, Title)
 
-# View the resulting data frame
-View(Director_df_long)
+
 
 
 # Switch the columns so that they become rows
 switched_director_df_long <- Director_df_long[, c("Actor", "Title")]
 
-# Print the first few rows of the switched data frame to verify the changes
-View(switched_director_df_long)
+
 
 #turns the data long so that it can be processed easier
 network <- switched_director_df_long %>% 
@@ -187,15 +184,13 @@ Director_df_long <- select(Director_df_long, -name)
 # Order the data frame by Title
 Director_df_long <- arrange(Director_df_long, Title)
 
-# View the resulting data frame
-View(Director_df_long)
+
   
 
 # Switch the columns to rows 
 switched_director_df_long <- Director_df_long[, c("Actor", "Title")]
 
-# Print the first few rows of the switched data frame to verify the changes
-View(switched_director_df_long)
+
 
 #turns the data long so that it can be processed easier
 network <- switched_director_df_long %>% 
