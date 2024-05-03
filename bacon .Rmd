@@ -1,4 +1,4 @@
-```{r,echo=FALSE}
+```{r,echo=FALSE,warning=FALSE}
 library(rvest)
 library(stringr)
 library(dplyr)
@@ -97,15 +97,9 @@ df <- as.data.frame(do.call(rbind, combined_list))
 
 
 
-# we now want to make the ratings into numbers so we are better able to manipulate these subsets
-as.numeric(df$Rating)
 # created a subset based on the rating greater than 8.6
 subset_df <- subset(df, Rating > 8.6)
 
-
-
-#changes rating from char to num and makes it better able to access
-as.numeric(df$Rating)
 
 #Create a df that has movies with ratings 8.6 and higher
 Rating_df <- subset(df, Rating >= 8.6, c("Title", "Actor1", "Actor2", "Actor3", "Actor4"))
@@ -156,7 +150,7 @@ vis_network <- network %>%
 # Sets up the visnetwork visually and then allows to create a graph we slected the movie icon and then we are able to select the movies to be the main part to each graph, we then selected the different colors for each part, and then we are able to produce the graph
 visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
            width = "100%", height = "600px",
-           main = "Connectedness graph of Spielberg") %>%
+           main = "Connectedness Graph of Spielberg") %>%
   visLayout(randomSeed = 1000) %>%
   addFontAwesome() %>%
   visGroups(groupname = "Title", shape = "icon",
@@ -227,7 +221,7 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
 Graph_Director(all_directors[1:10])
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,warning=FALSE}
 library(dplyr)
 library(visNetwork)
 
@@ -293,7 +287,7 @@ summary(filtered_hanks_numbers_df)
 
 ```
 
-```{r,echo=FALSE}
+```{r,echo=FALSE,warning=FALSE}
 library(igraph)
 library(dplyr)
 
@@ -333,7 +327,7 @@ filtered_hanks_numbers_df <- select(filtered_hanks_numbers_df, -actor)
 # Arrange the results in descending order based on the "hanks_number" column
 filtered_hanks_numbers_df <- arrange(filtered_hanks_numbers_df, desc(Tom.Hanks))
 
-print(filtered_hanks_numbers_df)
+head(filtered_hanks_numbers_df)
 
 
 ```
