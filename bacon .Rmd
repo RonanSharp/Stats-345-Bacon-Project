@@ -1,4 +1,4 @@
-```{r,echo=FALSE,warning=FALSE,messgae=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(rvest)
 library(stringr)
 library(dplyr)
@@ -289,7 +289,7 @@ summary(filtered_hanks_numbers_df)
 
 ```
 
-```{r,echo=FALSE,warning=FALSE,messgae=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(igraph)
 library(dplyr)
 
