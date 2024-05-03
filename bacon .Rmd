@@ -1,4 +1,4 @@
-## The overall goal for this project was to create a contentedness graph for a group of actors and then find the "Bacon Number" (degree of separation from Kevin Bacon or another actor of choosing) between actors. 
+The overall goal for this project was to create a contentedness graph for a group of actors and then find the "Bacon Number" (degree of separation from Kevin Bacon or another actor of choosing) between actors. 
 
 - The first step in this project was to scrape the the top 1000 movies from the website IMDB and then create a data frame of this data. In order to do this, we had use the selector gadget, and were able to find the keywords associated with the information of each movie. We then were able to take the title, top 4 actors, directors, rating, and profit from each movie and put that data into our data frame. After further manipulation, we were able to assign the correct four actors to each movie, as well as all of the other information we selected to go with each movie. After doing this we were able to create a connectedness graph.
 
