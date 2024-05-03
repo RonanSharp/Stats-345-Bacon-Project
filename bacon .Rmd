@@ -138,6 +138,15 @@ switched_director_df_long <- Director_df_long[, c("Actor", "Title")]
 network <- switched_director_df_long %>% 
   as_tbl_graph()
 
+
+
+```
+The next step after getting and processing the data was to organize it into a easily viewable format and we found that a connectedness graph created via VisNetwork was a good format. Creating a VisNetwork required us to move the data into start and end positions for each jump between movies and then it maps all of them between actors and movies. It then plots these onto a map where you can find the movies as little films and the actors as dots attached to them. This allows for an easier viewing process and shows the thought process behind a Bacon Number. We started off by doing a test run with a smaller data set using just Speilberg movies (seen below) and that went very well.
+
+
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+
 # sets network up for making a network graph changing the network to a tibble
 network %>% 
   activate(nodes) %>%
@@ -165,6 +174,11 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
              nodesIdSelection = TRUE) %>%
   visInteraction(navigationButtons = TRUE)
 ```
+
+
+
+
+We then made a function where the user can input a director or a group of directors and can get a connectedness chart from the movies they directed in our data set. Below is an example using the first 10 directors in our data set and the function is easy to use given our data set here. We limited the data used to create these sample graphs because when attempted with all of the data provided it would take too long to process and would be unusable. We decided directors was an easy and effective way to limit searching because a lot of directors use the same actors already and it would keep the large chunks together instead of creating a large amount of small pieces.
 
 ```{r,echo=FALSE,message=FALSE,message=FALSE}
 # We are now able to select whichever director we want for the graph and this is mcuh more user friendly for finding results we want to know
