@@ -296,6 +296,11 @@ summary(filtered_hanks_numbers_df)
 
 ```
 
+##Modifing the Game
+
+In order to change the way of interacting with the Hanks number we decided to add a filter based on movie rating to see what actors connect based on this factor. We pulled the movie ratings from the original data pull and kept this variable around in order to use as a filter later on. We decided to change the game based on rating because actors that associate with each other tend to appear in the same range of movie ratings as each other. Being that Tom Hanks is a well known actor in high end productions we thought that adding a filter that has movies greater than certain ratings would find us higher Hanks numbers. Because of this we know that our connectedness graph and actors that fit the Hanks number would not be affected as much as if we did it based on a different restriction such as profit or genre. Finally, in order to change this list we simply just change what rating we want to input and therefore make the list shrink or grow based on where and how wide the interval is.
+
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(igraph)
 library(dplyr)
