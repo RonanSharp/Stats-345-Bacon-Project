@@ -1,4 +1,4 @@
-The overall goal for this project was to create a contentedness graph for a group of actors and then find the "Bacon Number" (degree of separation from Kevin Bacon or another actor of choosing) between actors. 
+The overall goal for this project was to create a connectedness graph for a group of actors and then find the "Bacon Number" (degree of separation from Kevin Bacon or another actor of choosing) between actors. 
 
 \vspace{5cm}
 
