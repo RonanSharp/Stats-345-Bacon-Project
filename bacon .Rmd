@@ -1,4 +1,4 @@
-```{r,echo=FALSE,warning=FALSE}
+```{r,echo=FALSE,warning=FALSE,messgae=FALSE}
 library(rvest)
 library(stringr)
 library(dplyr)
@@ -162,7 +162,7 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
   visInteraction(navigationButtons = TRUE)
 ```
 
-```{r,echo=FALSE,message=FALSE}
+```{r,echo=FALSE,message=FALSE,message=FALSE}
 # We are now able to select whichever director we want for the graph and this is mcuh more user friendly for finding results we want to know
 Graph_Director = function(director)
 {
@@ -223,7 +223,7 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
 Graph_Director(all_directors[1:10])
 ```
 
-```{r,echo=FALSE,warning=FALSE}
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(dplyr)
 library(visNetwork)
 
@@ -289,7 +289,7 @@ summary(filtered_hanks_numbers_df)
 
 ```
 
-```{r,echo=FALSE,warning=FALSE}
+```{r,echo=FALSE,warning=FALSE,messgae=FALSE}
 library(igraph)
 library(dplyr)
 
@@ -329,7 +329,7 @@ filtered_hanks_numbers_df <- select(filtered_hanks_numbers_df, -actor)
 # Arrange the results in descending order based on the "hanks_number" column
 filtered_hanks_numbers_df <- arrange(filtered_hanks_numbers_df, desc(Tom.Hanks))
 
-head(filtered_hanks_numbers_df)
+print(filtered_hanks_numbers_df)
 
 
 ```
