@@ -186,10 +186,13 @@ visNetwork(nodes=vis_network$nodes, edges = vis_network$edges,
 ```
 \vspace{4cm}  
 
+\vspace{5cm}  
 
+\vspace{5cm} 
 
 - We then made a function where the user can input a director or a group of directors and can get a connectedness chart from the movies they directed in our data set. Below is an example using the first 10 directors in our data set and the function is easy to use given our data set here. We limited the data used to create these sample graphs because when attempted with all of the data provided it would take too long to process and would be unusable. We decided directors was an easy and effective way to limit searching because a lot of directors use the same actors already and it would keep the large chunks together instead of creating a large amount of small pieces.
 \vspace{4cm}  
+ 
 ```{r,echo=FALSE,message=FALSE,message=FALSE}
 # We are now able to select whichever director we want for the graph and this is mcuh more user friendly for finding results we want to know
 Graph_Director = function(director)
@@ -256,6 +259,7 @@ Graph_Director(all_directors[1:10])
 - Instead of calculating a traditional "Bacon Number" our group decided to calculate a number for degrees of separation for a more relevant and connected actor in our data set, that being Tom Hanks. This observation was found in our connectedness graph shown previously. Below you can view the 6 least connected actors in our data set reaching all the way to 10 degrees of separation. The average degrees of separation among people is typically 3. This statement also holds relatively true regarding our data set and "Hanks Number" which is shown in our five number summary as well as the graph showcasing the distribution of "Hanks Numbers". 
 
 \vspace{4cm}  
+\vspace{5cm}  
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(dplyr)
 library(visNetwork)
@@ -321,12 +325,14 @@ print(histogram)
 summary(filtered_hanks_numbers_df)
 
 ```
+\vspace{5cm}  
 \vspace{4cm}  
 ## Modifing the Game
 
-In order to change the way of interacting with the Hanks number we decided to add a filter based on movie rating to see what actors connect based on this factor. We pulled the movie ratings from the original data pull and kept this variable around in order to use as a filter later on. We decided to change the game based on rating because actors that associate with each other tend to appear in the same range of movie ratings as each other. Being that Tom Hanks is a well known actor in high end productions we thought that adding a filter that has movies greater than certain ratings would find us higher Hanks numbers. Because of this we know that our connectedness graph and actors that fit the Hanks number would not be affected as much as if we did it based on a different restriction such as profit or genre. Finally, in order to change this list we simply just change what rating we want to input and therefore make the list shrink or grow based on where and how wide the interval is.
+- In order to change the way of interacting with the Hanks number we decided to add a filter based on movie rating to see what actors connect based on this factor. We pulled the movie ratings from the original data pull and kept this variable around in order to use as a filter later on. We decided to change the game based on rating because actors that associate with each other tend to appear in the same range of movie ratings as each other. Being that Tom Hanks is a well known actor in high end productions we thought that adding a filter that has movies greater than certain ratings would find us higher Hanks numbers. Because of this we know that our connectedness graph and actors that fit the Hanks number would not be affected as much as if we did it based on a different restriction such as profit or genre. Finally, in order to change this list we simply just change what rating we want to input and therefore make the list shrink or grow based on where and how wide the interval is.
 
-\vspace{4cm}  
+\vspace{5cm}  
+
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
 library(igraph)
 library(dplyr)
