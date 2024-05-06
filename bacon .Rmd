@@ -256,8 +256,7 @@ Graph_Director(all_directors[1:10])
 \vspace{4cm}  
 
 ## Hanks Numbers
-- Instead of calculating a traditional "Bacon Number" our group decided to calculate a number for degrees of separation for a more relevant and connected actor in our data set, that being Tom Hanks. From our connectedness grpah above, we were able to visually see that he had a lot of connections to other actors in the data set. For that reason we choose to calculate "Hanks Numbers" instead. Below is a portion of a table that contains the Hanks Number for all the actors in the data set in decreasing order. The average degrees of separation among people is typically 3. This statement also holds relatively true regarding our data set and Hanks Number, which is shown in our five number summary as well as the graph showcasing the distribution of Hanks Numbers. 
-
+- Instead of calculating a traditional "Bacon Number" our group decided to calculate a number for degrees of separation for a more relevant and connected actor in our data set, that being Tom Hanks. From our connectedness graph above, we were able to visually see that he had a lot of connections to other actors in the data set. For that reason we choose to calculate "Hanks Numbers" instead. Below is a portion of a table that contains the Hanks Number for all the actors in the data set in decreasing order. The average degrees of separation among people is typically 3. This statement also holds relatively true regarding our data set which only contains 1000 movies chosen by IMBD, so it could be expected that the average Hanks Number may be greater than it actually is for our data. The distribition of Hanks Number is slightly skewed right and it can be assumed that the distribution of the total population would show even more skew as there are more actors that will eventually be able to connect back to Tom Hanks.
 \vspace{4cm}  
 \vspace{5cm}  
 ```{r,echo=FALSE,warning=FALSE,message=FALSE}
