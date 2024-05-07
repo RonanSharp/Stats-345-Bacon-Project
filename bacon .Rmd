@@ -5,7 +5,7 @@ The overall goal for this project was to create a connectedness graph for a grou
 ## Movie Dataframe
 
 
-- The first step in this project was to scrape the the top 1000 movies from the website IMDB and then create a data frame of this data. In order to do this, we had use the selector gadget, and were able to find the keywords associated with the information of each movie. We then were able to take the title, top 4 actors, directors, rating, and profit from each movie and put that data into our data frame. After further manipulation, we were able to assign the correct four actors to each movie, as well as all of the other information we selected to go with each movie. After doing this we were able to create a connectedness graph.
+- The first step in this project was to scrape the the top 1000 movies from the website IMDB and then create a data frame of this data. In order to do this, we had use the selector gadget, and were able to find the keywords associated with the information of each movie. Each page of 100 movies had a different URL on the IMDB website. We had to find the common url of these pages, and then were able to loop through each pages and scrape the movies correctly. We then were able to take the title, top four actors, director, rating, and profit from each movie and put that data into our data frame. After further manipulation, we were able to assign the correct four actors to each movie, as well as all of the other information we selected to go with each movie. After doing this we were able to create a connectedness graph.
 
 \vspace{4cm}  
 
